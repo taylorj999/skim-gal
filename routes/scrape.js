@@ -9,11 +9,11 @@ function Scrape() {
 
 Scrape.prototype.extractResponseData = function extractResponseData(result,callback) {
 	var self = this;
-	var data = "";
-	result.on("data", function(chunk) { data += chunk; });
+	var data = [];
+	result.on("data", function(chunk) { data.push(chunk); });
 	
 	result.on("end", function() { 
-		var $ = cheerio.load(data);
+		var $ = cheerio.load(data.join(""));
 		var webpageTitle = $("title").text(); 
 		var pageSpans = [];
 		$("span.thumb").each(function(index,element) {
