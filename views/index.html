@@ -1,0 +1,40 @@
+{% extends 'frametemplate.html' %}
+
+{% block title %}{{webpage.title}}{% endblock %}
+
+{% block leftcolumn %}
+	<div class="taglist">
+	{% for tag in webpage.tags %}
+		<div class="tag" id="{{tag.tagName}}"><a href="/search?tags={{tag.tagName}}">{{tag.prettyName}}</a> <span class="tagcount">({{tag.tagCount}})</span></div>
+	{% endfor %}
+	</div>
+{% endblock %}
+
+{% block main %}
+	<div id="alert">{{error}}</div>
+
+	{% if webpage.image %}
+	<div id="image">
+	  <img id="mainimage" alt="{{webpage.image.alt}}" src="/proxyImage/{{webpage.image.fileName}}?remoteUrl={{webpage.image.encodedSrc}}"/>
+	</div>
+	{% endif %}
+	{% if webpage.spans %}
+	<div class="gallery">
+	  {% for pageSpan in webpage.spans %}
+	  <div class="galleryimg">
+		<a id="{{pageSpan.linkId}}" href="/image?id={{pageSpan.linkId}}"><img src="https:{{pageSpan.imgUrl}}" alt="{{pageSpan.imgAlt}}" title="{{pageSpan.imgTitle}}"/></a>
+	  </div>
+		{% if (loop.index % 5) == 0 %}
+		<br/>
+		{% endif %}
+	  {% endfor %}
+	</div>
+	{% endif %}
+	{% if webpage.pagi %}
+	<div class="pagination">
+	  {% for pagination in webpage.pagi %}
+	  <{{pagination.pName}} href="/search{{pagination.pLink}}">{{pagination.pText}}</{{pagination.pName}}>
+	  {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}

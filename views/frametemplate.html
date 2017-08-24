@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>{% block title %}Gallery Scraper{% endblock %}</title>
+  <link rel="stylesheet" href="/css/skimmer.css"/>
+  <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+  <script language="Javascript">
+      $.ajaxSetup({
+          cache: false
+      });
+  </script>
+  {% block header %}
+  {% endblock %}
+</head>
+<body>
+	<div id="top">HEADER IMAGE MIGHT GO HERE</div>
+	<div id="topnav">
+	</div>
+	<div id="centerpage">
+		<div id="leftcolumn">
+		{% block searchbox %}
+		<div style="font-size: 12px; text-align: center">Search</div>
+		<form name="search" method="GET" action="/search">
+			Tags: <input type="text" name="tags" value="{{tags}}"/>
+		</form>
+		<input type="button" name="submit" value="Search" onClick="document.forms.search.submit();"/>
+		{% endblock %}
+		{% block leftcolumn %}
+		{% endblock %}
+		</div>
+		<div id="main">
+		{% block main %}
+		CONTENT WELL
+		{% endblock %}
+		</div>
+	</div>
+	<div id="footer">{% block footer %}Skim-gal source located at <a href="http://www.github.com/taylorj999/skim-gal">Github</a>{% endblock %}</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+html {
+	overflow-y: scroll;
+}
+
+body {
+	margin: 0;
+}
+
+p, td, ul {
+	line-height: 125%;
+}
+
+img {
+	border: 0 none;
+}
+
+div#top {
+	height: 60px;
+	margin: auto;
+	width: 100%;
+}
+
+div#image {
+	width: 100%;
+}
+
+div#topnav {
+	background-color: #d3d3d3;
+	height: 25px;
+	width: 100%;
+}
+
+div#centerpage {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 0 20px 3px #d3d3d3;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    width: 99%;
+}
+
+div#leftcolumn {
+    float: left;
+    margin-left: 10px;
+    margin-right: 4px;
+    width: 170px;
+}
+
+div#main {
+    overflow: auto;
+    padding: 0 7px 7px;
+}
+
+div#footer {
+    color: #909090;
+    font-size: 11px;
+    margin: auto;
+    padding-left: 30px;
+    padding-right: 150px;
+    text-align: center;
+    width: 100%;
+    float: left;
+}
+
+div.gallery {
+	width: 100%;
+}
+
+div.gallery br {
+	clear: both;
+}
+
+div.galleryimg {
+    margin: 5px;
+    padding: 5px;
+    min-width: 150px;
+    min-height: 150px;
+    float: left;
+    text-align: center;
+    display: inline-block;
+    overflow-wrap: break-word;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+div.galleryimg img {
+    margin: 5px;
+    border: 1px solid #ffffff;
+}
+
+div.galleryimg a:hover img {
+    border:1px solid #0000ff;
+}
+
+div.pagination {
+	float: right;
+	text-align: center;
+	clear: both;
+	margin: 17px;
+	display: inline-block;
+	border-radius: 0;
+}
+
+div.pagination a {
+	border: 1px solid #eaeaea;
+	font-weight: normal;
+	margin: 0 3px;
+	padding: 8px 12px;
+}
+div.imagedetail {
+	font-size: 0.875em;
+}
+
+span.tagcount {
+    font-size: 10px;
+    color: #a0a0a0;
+}
+
