@@ -22,7 +22,7 @@
 	<div class="gallery">
 	  {% for pageSpan in webpage.spans %}
 	  <div class="galleryimg">
-		<a id="{{pageSpan.linkId}}" href="/image?id={{pageSpan.linkId}}"><img src="https:{{pageSpan.imgUrl}}" alt="{{pageSpan.imgAlt}}" title="{{pageSpan.imgTitle}}"/></a>
+		<a id="{{pageSpan.linkId}}" href="/image?id={{pageSpan.linkId}}"><img src="/proxyImage/{{pageSpan.linkId}}?remoteUrl={{pageSpan.encodedSrc}}" alt="{{pageSpan.imgAlt}}" title="{{pageSpan.imgTitle}}"/></a>
 	  </div>
 		{% if (loop.index % 5) == 0 %}
 		<br/>

@@ -23,7 +23,8 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 					         linkUrl : theLink.attr("href"),
 					         imgUrl : theImage.attr("src"),
 					         imgAlt : theImage.attr("alt"),
-					         imgTitle : theImage.attr("title")};
+					         imgTitle : theImage.attr("title"),
+					         encodedSrc : encodeURIComponent(theImage.attr("src"))};
 			pageSpans.push(thumbData);
 		});
 		var pagination = [];
@@ -168,7 +169,9 @@ Scrape.prototype.getProxiedImage = function getProxiedImage(url, cookies, callba
 				   ,hostname: config.site.targetSite
 				   ,headers:{'User-Agent':config.system.fakeUserAgent}
 				   ,path:decodedUrl};
-	options.headers.cookies = cookies.join("; ");
+	if (cookies !== undefined) {
+		options.headers.cookies = cookies.join("; ");
+	}
 	// we can't trust that there's nothing stupid in the remote url, so do a little cleanup
 	var splitUrlString = decodedUrl.split("//");
 	if (splitUrlString.length > 1) {
@@ -176,7 +179,19 @@ Scrape.prototype.getProxiedImage = function getProxiedImage(url, cookies, callba
 			if (urlPart.length === 0) {
 				// ignore
 			} else if (urlPart.indexOf(config.site.targetSite) != -1) {
-				options.hostname = urlPart;
+				// do advanced cleanup
+				var newHostname = "";
+				var newPath = "";
+				var splitUrlPart = urlPart.split("/");
+				splitUrlPart.forEach(function (subUrlPart) {
+					if (subUrlPart.indexOf(config.site.targetSite) != -1) {
+						options.hostname = subUrlPart;
+					} else {
+						newPath += "/";
+						newPath += subUrlPart;
+					}
+				});
+				options.path = newPath;
 			} else {
 				options.path = "/" + urlPart;
 			}

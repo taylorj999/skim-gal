@@ -26,6 +26,7 @@ module.exports = exports = function(app) {
 		scrape.doSearch(merge(tags,config.site.alwaysExcludeTags)
 			           ,pageId
 			           ,function(webpage) {
+			saveRemoteCookiesInSession(req,webpage.cookies);
 			res.render('index',{'webpage':webpage});
 		});
 	});
