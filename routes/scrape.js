@@ -21,10 +21,10 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 			var theImage = theLink.children("img").first();
 			var thumbData = {linkId : theLink.attr("id").slice(1,theLink.attr("id").length),
 					         linkUrl : theLink.attr("href"),
-					         imgUrl : theImage.attr("src"),
+					         imgUrl : theImage.attr("data-src"),
 					         imgAlt : theImage.attr("alt"),
 					         imgTitle : theImage.attr("title"),
-					         encodedSrc : encodeURIComponent(theImage.attr("src"))};
+					         encodedSrc : encodeURIComponent(theImage.attr("data-src"))};
 			pageSpans.push(thumbData);
 		});
 		var pagination = [];
