@@ -88,6 +88,14 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 				comments.push(commentData);
 			}
 		});
+		// note extractor
+		var notes = [];
+		$("[id=notes]").children().each(function(index,element) {
+			var noteData = {noteId: $(element).attr("data-id"), width: $(element).attr("data-width"),
+					        height: $(element).attr("data-height"), x: $(element).attr("data-x"),
+					        y: $(element).attr("data-y"), text: $(element).text()};
+			notes.push(noteData);
+		});
 		var setcookie = result.headers["set-cookie"];
 		var cookies = [];
 	    if ( setcookie ) {
@@ -106,7 +114,8 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
           tags: tags,
           image: image,
           cookies: cookies,
-          comments: comments
+          comments: comments,
+          notes: notes
         }
         callback(webpage);
 	});

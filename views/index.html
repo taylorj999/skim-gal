@@ -25,6 +25,13 @@
 		{% endfor %}
 	</div>
 	{% endif %}
+	{% if webpage.notes %}
+	<div id="notes">
+		{% for note in webpage.notes %}
+		<div id="{{note.noteId}}">{{note.text}}</div>
+		{% endfor %}
+	</div>
+	{% endif %}
 	{% if webpage.spans %}
 	<div class="gallery">
 	  {% for pageSpan in webpage.spans %}
