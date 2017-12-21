@@ -21,10 +21,10 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 			var theImage = theLink.children("img").first();
 			var thumbData = {linkId : theLink.attr("id").slice(1,theLink.attr("id").length),
 					         linkUrl : theLink.attr("href"),
-					         imgUrl : theImage.attr("data-src"),
+					         imgUrl : theImage.attr("data-original"),
 					         imgAlt : theImage.attr("alt"),
 					         imgTitle : theImage.attr("title"),
-					         encodedSrc : encodeURIComponent(theImage.attr("data-src"))};
+					         encodedSrc : encodeURIComponent(theImage.attr("data-original"))};
 			pageSpans.push(thumbData);
 		});
 		var pagination = [];
@@ -76,6 +76,18 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 			image.fileName = image.src.split("/").pop();
 			image.encodedSrc = encodeURIComponent($(element).attr("src"));
 		});
+		// comment extractor
+		var comments = [];
+		$("[id^=c]").each(function(index,element) {
+			var idNum = $(element).attr("id").substring(1);
+			if (!isNaN(parseInt(idNum, 10))) {
+				if (config.system.debug) {
+					console.log("Comment: " + $(element).attr("id") + " : " + $(element).text());
+				}
+				var commentData = {commentId: idNum, commentText: $(element).text()};
+				comments.push(commentData);
+			}
+		});
 		var setcookie = result.headers["set-cookie"];
 		var cookies = [];
 	    if ( setcookie ) {
@@ -93,7 +105,8 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
           pagi: pagination,
           tags: tags,
           image: image,
-          cookies: cookies
+          cookies: cookies,
+          comments: comments
         }
         callback(webpage);
 	});
@@ -205,7 +218,7 @@ Scrape.prototype.getProxiedImage = function getProxiedImage(url, cookies, callba
 		if (config.system.debug) {
 		  console.log('statusCode:', res.statusCode);
 		  console.log('headers:', res.headers);
-		}		  
+		}
 		  var cType = res.headers["content-type"];
 		  var cLength = parseInt(res.headers["content-length"]);
 		  var cIndex = 0;

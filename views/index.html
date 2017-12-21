@@ -18,6 +18,13 @@
 	  <img id="mainimage" alt="{{webpage.image.alt}}" src="/proxyImage/{{webpage.image.fileName}}?remoteUrl={{webpage.image.encodedSrc}}"/>
 	</div>
 	{% endif %}
+	{% if webpage.comments %}
+	<div id="comments">
+		{% for comment in webpage.comments %}
+		<div id="{{comment.commentId}}">{{comment.commentText}}</div>
+		{% endfor %}
+	</div>
+	{% endif %}
 	{% if webpage.spans %}
 	<div class="gallery">
 	  {% for pageSpan in webpage.spans %}
