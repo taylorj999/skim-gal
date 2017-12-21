@@ -49,7 +49,7 @@ module.exports = exports = function(app) {
 			scrape.getProxiedImage(req.query.remoteUrl,
 					               req.session.remoteCookieStore,
 					 			   function(headers, data) {
-				res.writeHead(200,headers);
+				res.writeHead(200,{'Content-Type':headers["content-type"],'Content-Length':headers["content-length"]});
 				res.send(data);
 			});
 		} else {
