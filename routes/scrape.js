@@ -21,10 +21,12 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 			var theImage = theLink.children("img").first();
 			var thumbData = {linkId : theLink.attr("id").slice(1,theLink.attr("id").length),
 					         linkUrl : theLink.attr("href"),
-					         imgUrl : theImage.attr("data-original"),
+//					         imgUrl : theImage.attr("data-original"),
+					         imgUrl : theImage.attr("src"),
 					         imgAlt : theImage.attr("alt"),
 					         imgTitle : theImage.attr("title"),
-					         encodedSrc : encodeURIComponent(theImage.attr("data-original"))};
+//					         encodedSrc : encodeURIComponent(theImage.attr("data-original"))
+					         encodedSrc : encodeURIComponent(theImage.attr("src"))					        };
 			pageSpans.push(thumbData);
 		});
 		var pagination = [];
