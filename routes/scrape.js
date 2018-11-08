@@ -75,7 +75,7 @@ Scrape.prototype.extractResponseData = function extractResponseData(result,callb
 			image.alt = $(element).attr("alt");
 			image.src = config.site.targetProtocol + "://" + config.site.targetSite + 
 			            $(element).attr("src");
-			image.fileName = image.src.split("/").pop();
+			image.fileId = image.src.split("/").pop().split(".").shift();
 			image.encodedSrc = encodeURIComponent($(element).attr("src"));
 		});
 		// comment extractor

@@ -15,7 +15,7 @@
 
 	{% if webpage.image %}
 	<div id="image">
-	  <img id="mainimage" alt="{{webpage.image.alt}}" src="/proxyImage/{{webpage.image.fileName}}?remoteUrl={{webpage.image.encodedSrc}}"/>
+	  <img id="mainimage" alt="{{webpage.image.alt}}" src="/proxyImage/{{webpage.image.fileId}}?remoteUrl={{webpage.image.encodedSrc}}"/>
 	</div>
 	{% endif %}
 	{% if webpage.comments %}
