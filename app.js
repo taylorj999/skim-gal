@@ -9,6 +9,8 @@ var express = require('express')
   , consolidate = require('consolidate')
   , swig = require('swig')
   , app = express()
+  , bodyParser = require('body-parser')
+  , expressSession = require('express-session')
   , config = require('./config/config');
 
 "use strict";
@@ -21,12 +23,14 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
 // Express middleware to populate 'req.cookies' so we can access cookies
-app.use(express.cookieParser());
+// app.use(express.cookieParser());
 
 // Express middleware to populate 'req.body' so we can access POST variables
-app.use(express.bodyParser());
+// https://www.npmjs.com/package/body-parser
+app.use(bodyParser.urlencoded({'extended':false}));
 
-app.use(express.session({secret: config.system.sessionKey}));
+app.use(expressSession({secret: config.system.sessionKey, resave: false, 
+	saveUninitialized: false}));
 
 routes(app);
 

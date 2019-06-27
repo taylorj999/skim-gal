@@ -48,12 +48,23 @@ module.exports = exports = function(app) {
 		if (req.query.remoteUrl !== undefined) {
 			scrape.getProxiedImage(req.query.remoteUrl,
 					               req.session.remoteCookieStore,
-					 			   function(headers, data) {
-				res.writeHead(200,{'Content-Type':headers["content-type"],'Content-Length':headers["content-length"]});
+/*					 			   function(headers, data) {
+				res.set({'Content-Type':headers["content-type"],'Content-Length':headers["content-length"]});
+				res.status(200);
 				res.send(data);
+			});*/
+					               function(remoteResponse) {
+				if (remoteResponse.statusCode === 200) {
+					res.set({'Content-Type':remoteResponse.headers["content-type"],'Content-Length':remoteResponse.headers["content-length"]});
+					res.status(200);
+					remoteResponse.pipe(res);
+				} else {
+					res.status(404);
+					res.send();
+				}
 			});
 		} else {
-			res.writeHead(404);
+			res.status(404);
 			res.send();
 		}
 	});

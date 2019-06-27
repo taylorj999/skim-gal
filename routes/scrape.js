@@ -225,7 +225,7 @@ Scrape.prototype.getProxiedImage = function getProxiedImage(url, cookies, callba
 	if (config.system.debug) {
 		console.log('request headers:', options);
 	}
-	https.get(options,function (res) {
+/*	https.get(options,function (res) {
 		if (config.system.debug) {
 		  console.log('statusCode:', res.statusCode);
 		  console.log('headers:', res.headers);
@@ -239,6 +239,9 @@ Scrape.prototype.getProxiedImage = function getProxiedImage(url, cookies, callba
 		  res.on("data", function(chunk) {
 			 imgBuffer.write(chunk,cIndex,"binary");
 			 cIndex += chunk.length;
+			 if (config.system.debug) {
+				 console.log("cIndex: ",cIndex);
+			 }
 		  });
 		  
 		  res.on("end", function() {
@@ -246,7 +249,8 @@ Scrape.prototype.getProxiedImage = function getProxiedImage(url, cookies, callba
 		  });
 	}).on('error', (e) => {
 		  console.error(e);
-	});
+	}); */
+	https.get(options,callback);
 }
 
 module.exports.Scrape = Scrape;
