@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "skim-gal",
   "scripts": {
-    "start": "node app.js"
+    "setup-js": "copyfiles -f \"node_modules/jquery/dist/jquery.min.js\" public/js/",
+    "setup": "npm run setup-js",
+    "start": "nodemon app.js"
   },
-  "repository": "",
+  "repository": "http://www.github.com/taylorj999/skim-gal",
   "keywords": [
     "node.js",
     "eclipse",
@@ -17,11 +19,12 @@
   "dependencies": {
     "async": "^3.1.0",
     "body-parser": "~1.19.0",
-    "express-session": "~1.16.2",
     "cheerio": "^1.0.0-rc.3",
     "consolidate": "~0.9.1",
+    "ejs": "^3.1.2",
     "express": "~4.17.1",
-    "request": "^2.88.0",
-    "swig": "1.4.x"
+    "express-session": "~1.16.2",
+    "jquery": "^3.5.1",
+    "request": "^2.88.0"
   }
 }

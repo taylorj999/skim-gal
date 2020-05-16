@@ -1,0 +1,6 @@
+<div class="taglist">
+<% for (let x=0;x<webpage.tags.length;x++) { 
+     let tag = webpage.tags[x]; %>
+		<div class="tag" id="<%=tag.tagName%>"><a href="/search?tags=<%=tag.tagName%>"><%=tag.prettyName%></a> <span class="tagcount">(<%=tag.tagCount%>)</span></div>
+<% } %>
+</div>

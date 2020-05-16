@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/css/skimmer.css"/>
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script>
+      $.ajaxSetup({
+          cache: false
+      });
+  </script>
+</head>
+<body>
+	<div id="top">HEADER IMAGE MIGHT GO HERE</div>
+	<div id="topnav">
+	</div>
+	<div id="centerpage">
+		<div id="leftcolumn">
+		<div style="font-size: 12px; text-align: center">Search</div>
+		<form name="search" method="GET" action="/search">
+			Tags: <input type="text" name="tags" value="<%=tags%>"/>
+		</form>
+		<input type="button" name="submit" value="Search" onClick="document.forms.search.submit();"/>
+		<%- include('partials/taglist') %>
+		</div>
+	<div id="main">
+	<div id="alert"><%=error%></div>
+		<% if ("image" in webpage && webpage.image!=null) { %>
+	<div id="image">
+	  <img id="mainimage" alt="<%=webpage.image.alt%>" src="/proxyImage/<%=webpage.image.fileId%>?remoteUrl=<%=webpage.image.encodedSrc%>"/>
+	</div>
+		<% } %>
+		<% if ("comments" in webpage) { %>
+	<div id="comments">
+			<% for (let x=0;x<webpage.comments.length;x++) { 
+			     let comment = webpage.comments[x]; %>
+		<div id="<%=comment.commentId%>"><%=comment.commentText%></div>
+			<% } %>
+	</div>
+		<% } %>
+		<% if ("notes" in webpage) { %>
+	<div id="notes">
+			<% for (let y=0;y<webpage.notes.length;y++) { 
+			     let note = webpage.notes[y]; %>
+		<div id="<%=note.noteId%>"><%=note.text%></div>
+			<% } %>
+	</div>
+		<% } %>
+		<% if ("spans" in webpage) { %>
+	<div class="gallery">
+			<% for (let z=0;z<webpage.spans.length;z++) { 
+			     let pageSpan = webpage.spans[z]; %>
+	  <div class="galleryimg">
+		<a id="<%=pageSpan.linkId%>" href="/image?id=<%=pageSpan.linkId%>"><img src="/proxyImage/<%=pageSpan.linkId%>?remoteUrl=<%=pageSpan.encodedSrc%>" alt="<%=pageSpan.imgAlt%>" title="<%=pageSpan.imgTitle%>"/></a>
+	  </div>
+	  			<% if (z>0 && z%5==0) { %>
+		<br/>
+				<% } %>
+			<% } %>
+	</div>
+		<% } %>
+		<% if ("pagi" in webpage) { %>
+	<div class="pagination">
+			<% for (let a=0;a<webpage.pagi.length;a++) { 
+			     let pagination = webpage.pagi[a]; %>
+	  <<%=pagination.pName%> href="/search<%=pagination.pLink%>"><%=pagination.pText%></<%=pagination.pName%>>
+			<% } %>
+	</div>
+		<% } %>
+
+		</div>
+	</div>
+	<div id="footer">Skim-gal source located at <a href="http://www.github.com/taylorj999/skim-gal">Github</a></div>
+
+
+
+</body>
+</html>

@@ -7,7 +7,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , consolidate = require('consolidate')
-  , swig = require('swig')
+  , ejs = require('ejs')
   , app = express()
   , bodyParser = require('body-parser')
   , expressSession = require('express-session')
@@ -18,8 +18,7 @@ var express = require('express')
 app.use(express.static(path.join(__dirname, "public")));
 
 // Register our templating engine
-app.engine('html', consolidate.swig);
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 // Express middleware to populate 'req.cookies' so we can access cookies

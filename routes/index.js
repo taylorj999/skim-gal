@@ -9,7 +9,9 @@ module.exports = exports = function(app) {
 		scrape.doSearch(merge(config.site.defaultSearchTags,config.site.alwaysExcludeTags)
 				       ,"0"
 				       ,function(webpage) {
-			res.render('index',{'webpage':webpage});
+			let params = fillDefaultParameters();
+			params.webpage = webpage;
+			res.render('index',params);
 		});
 	});
 	
@@ -26,8 +28,11 @@ module.exports = exports = function(app) {
 		scrape.doSearch(merge(tags,config.site.alwaysExcludeTags)
 			           ,pageId
 			           ,function(webpage) {
+			let params = fillDefaultParameters();
+			params.webpage = webpage;
+			if (req.query.tags!==undefined) params.tags = req.query.tags;
 			saveRemoteCookiesInSession(req,webpage.cookies);
-			res.render('index',{'webpage':webpage});
+			res.render('index',params);
 		});
 	});
 	
@@ -39,7 +44,9 @@ module.exports = exports = function(app) {
 		}
 		scrape.getImage(id, function(webpage) {
 			saveRemoteCookiesInSession(req,webpage.cookies);
-			res.render('index',{'webpage':webpage});
+			let params = fillDefaultParameters();
+			params.webpage=webpage;
+			res.render('index',params);
 		});
 	});
 	
@@ -102,4 +109,9 @@ function merge(a, b) {
         hash[b[i]]=true;
     } 
     return Object.keys(hash);
+}
+
+function fillDefaultParameters() {
+	let defaultParams = {'error':"", 'tags':"",'pageTitle':"Gallery Scraper"};
+	return defaultParams;
 }
